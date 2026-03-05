@@ -66,7 +66,7 @@ log "Installing Python packages system-wide..."
 # Override PEP 668 externally-managed-environment protection
 export PIP_BREAK_SYSTEM_PACKAGES=1
 
-pip3 install \
+pip3 install --ignore-installed \
     "pydantic>=2.5.0" \
     "pydantic-settings>=2.1.0" \
     "python-dotenv>=1.0.0" \
