@@ -75,8 +75,10 @@ pip3 install --ignore-installed \
     "python-telegram-bot>=20.0" \
     "chromadb>=0.4.0" \
     "aiohttp>=3.9.0" \
+    "aiofiles>=23.0.0" \
     "beautifulsoup4>=4.12.0" \
-    "yt-dlp>=2024.0.0"
+    "yt-dlp>=2024.0.0" \
+    "psutil>=5.9.0"
 log "Python packages installed system-wide"
 
 # ─── Create workspace ────────────────────────────────────────
