@@ -1,0 +1,215 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "lya"
+version = "0.2.0"
+description = "Lya - Professional Autonomous AGI Agent"
+authors = ["Shoji <shoji@example.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/shoji/lya"
+repository = "https://github.com/shoji/lya"
+documentation = "https://lya.readthedocs.io"
+keywords = ["agi", "agent", "ai", "autonomous", "llm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+packages = [{include = "lya", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+# Core
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+python-dotenv = "^1.0.0"
+structlog = "^23.0.0"
+
+# Async (asyncio is stdlib, no PyPI package needed)
+aiomysql = {version = "^0.2.0", optional = true}
+aiosqlite = {version = "^0.19.0", optional = true}
+
+# LLM
+httpx = ">=0.25.0"
+openai = {version = "^1.0.0", optional = true}
+anthropic = {version = "^0.7.0", optional = true}
+
+# Memory & Vector DB
+chromadb = {version = "^0.4.0", optional = true}
+qdrant-client = {version = "^1.6.0", optional = true}
+sentence-transformers = {version = "^2.2.0", optional = true}
+
+# Web & API
+fastapi = {version = "^0.104.0", optional = true}
+uvicorn = {version = "^0.24.0", optional = true}
+websockets = {version = "^12.0", optional = true}
+python-telegram-bot = {version = "^20.0", optional = true}
+
+# Browser & Web
+playwright = {version = "^1.40.0", optional = true}
+aiohttp = {version = "^3.9.0", optional = true}
+beautifulsoup4 = {version = "^4.12.0", optional = true}
+
+# Download & Media
+yt-dlp = {version = ">=2024.0.0", optional = true}
+
+# Voice
+speech-recognition = {version = "^3.10.0", optional = true}
+pyttsx3 = {version = "^2.90", optional = true}
+
+# Security
+docker = {version = "^6.1.0", optional = true}
+restrictedpython = {version = "^6.2", optional = true}
+
+# Monitoring & Observability
+prometheus-client = {version = "^0.19.0", optional = true}
+opentelemetry-api = {version = "^1.21.0", optional = true}
+opentelemetry-sdk = {version = "^1.21.0", optional = true}
+
+# CLI
+click = {version = "^8.1.0", optional = true}
+rich = {version = "^13.0.0", optional = true}
+prompt-toolkit = {version = "^3.0.0", optional = true}
+
+# Testing
+pytest = {version = "^7.4.0", optional = true}
+pytest-asyncio = {version = "^0.21.0", optional = true}
+pytest-cov = {version = "^4.1.0", optional = true}
+pytest-mock = {version = "^3.12.0", optional = true}
+pytest-xdist = {version = "^3.3.0", optional = true}
+factory-boy = {version = "^3.3.0", optional = true}
+
+# Development
+ruff = {version = "^0.1.0", optional = true}
+mypy = {version = "^1.7.0", optional = true}
+pre-commit = {version = "^3.5.0", optional = true}
+nox = {version = "^2023.4.22", optional = true}
+
+[tool.poetry.extras]
+all = [
+    "aiomysql", "aiosqlite", "openai", "anthropic", "chromadb",
+    "qdrant-client", "sentence-transformers", "fastapi", "uvicorn",
+    "websockets", "python-telegram-bot", "playwright", "aiohttp",
+    "beautifulsoup4", "yt-dlp", "speech-recognition", "pyttsx3", "docker",
+    "restrictedpython", "prometheus-client", "opentelemetry-api",
+    "opentelemetry-sdk", "click", "rich", "prompt-toolkit"
+]
+llm = ["openai", "anthropic"]
+memory = ["chromadb", "qdrant-client", "sentence-transformers"]
+api = ["fastapi", "uvicorn", "websockets"]
+messaging = ["python-telegram-bot"]
+web = ["playwright", "aiohttp", "beautifulsoup4"]
+media = ["yt-dlp"]
+voice = ["speech-recognition", "pyttsx3"]
+security = ["docker", "restrictedpython"]
+monitoring = ["prometheus-client", "opentelemetry-api", "opentelemetry-sdk"]
+cli = ["click", "rich", "prompt-toolkit"]
+dev = ["pytest", "pytest-asyncio", "pytest-cov", "pytest-mock", "pytest-xdist",
+       "factory-boy", "ruff", "mypy", "pre-commit", "nox"]
+
+[tool.poetry.scripts]
+lya = "lya.adapters.cli.main:main"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+select = [
+    "E",   # pycodestyle errors
+    "F",   # Pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "W",   # pycodestyle warnings
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+    "TID", # flake8-tidy-imports
+    "Q",   # flake8-quotes
+    "FLY", # flynt
+    "PERF",# perflint
+    "RUF", # ruff-specific rules
+]
+ignore = ["E501"]  # Line length handled by formatter
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.14"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = false
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+show_error_codes = true
+show_column_numbers = true
+show_error_context = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-ra -q --strict-markers --strict-config"
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "e2e: End-to-end tests",
+    "slow: Slow tests",
+    "llm: Tests requiring LLM",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+show_missing = true
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"

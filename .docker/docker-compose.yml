@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  lya:
+    build:
+      context: ..
+      dockerfile: .docker/Dockerfile
+    container_name: lya-bot
+    env_file:
+      - ../.env
+    environment:
+      - LYA_ENV=production
+      - LYA_WORKSPACE_PATH=/app/workspace
+    volumes:
+      - lya_workspace:/app/workspace
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "run_lya.py"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  lya_workspace:

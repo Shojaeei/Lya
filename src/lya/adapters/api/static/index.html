@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lya Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Lya Dashboard</h1>
+        <span id="status" class="status offline">Disconnected</span>
+    </header>
+
+    <main>
+        <div class="grid">
+            <section class="card" id="bot-info">
+                <h2>Bot Status</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Status</label>
+                        <span id="bot-status">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Model</label>
+                        <span id="bot-model">-</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Uptime</label>
+                        <span id="bot-uptime">-</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Memories</label>
+                        <span id="bot-memories">-</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" id="features">
+                <h2>Features</h2>
+                <div class="feature-list" id="feature-list">
+                    <div class="feature">Voice Messages</div>
+                    <div class="feature">Image Understanding</div>
+                    <div class="feature">Streaming</div>
+                    <div class="feature">RAG / Documents</div>
+                    <div class="feature">Scheduler</div>
+                    <div class="feature">Preferences</div>
+                </div>
+            </section>
+
+            <section class="card wide" id="events">
+                <h2>Live Events</h2>
+                <div id="event-log" class="log"></div>
+            </section>
+
+            <section class="card wide" id="chat-section">
+                <h2>Chat</h2>
+                <div id="chat-log" class="log chat-log"></div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Send a message...">
+                    <button id="chat-send">Send</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="/static/dashboard.js"></script>
+</body>
+</html>
