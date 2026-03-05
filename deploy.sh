@@ -66,7 +66,6 @@ log "Installing Python packages system-wide..."
 # Override PEP 668 externally-managed-environment protection
 export PIP_BREAK_SYSTEM_PACKAGES=1
 
-pip3 install --upgrade pip
 pip3 install \
     "pydantic>=2.5.0" \
     "pydantic-settings>=2.1.0" \
@@ -117,7 +116,7 @@ SyslogIdentifier=lya
 # Security hardening
 NoNewPrivileges=true
 ProtectSystem=strict
-ReadWritePaths=$PROJECT_DIR /home/$(whoami)/.lya /tmp
+ReadWritePaths=$PROJECT_DIR $(eval echo ~$(whoami))/.lya /tmp
 
 [Install]
 WantedBy=multi-user.target
