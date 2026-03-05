@@ -62,20 +62,12 @@ log "System packages installed (python3, pip, ffmpeg, git)"
 
 # ─── Install Python packages system-wide ─────────────────────
 log "Installing Python packages system-wide..."
-sudo pip3 install --break-system-packages --upgrade pip 2>/dev/null || sudo pip3 install --upgrade pip
-sudo pip3 install --break-system-packages \
-    "pydantic>=2.5.0" \
-    "pydantic-settings>=2.1.0" \
-    "python-dotenv>=1.0.0" \
-    "structlog>=23.0.0" \
-    "httpx>=0.25.0" \
-    "python-telegram-bot>=20.0" \
-    "chromadb>=0.4.0" \
-    "aiohttp>=3.9.0" \
-    "beautifulsoup4>=4.12.0" \
-    "yt-dlp>=2024.0.0" \
-    2>/dev/null || \
-sudo pip3 install \
+
+# Override PEP 668 externally-managed-environment protection
+export PIP_BREAK_SYSTEM_PACKAGES=1
+
+pip3 install --upgrade pip
+pip3 install \
     "pydantic>=2.5.0" \
     "pydantic-settings>=2.1.0" \
     "python-dotenv>=1.0.0" \
